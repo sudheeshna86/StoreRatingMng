@@ -1,134 +1,180 @@
 import {
   getStoresForUser,
+  findStoreById,
   findRating,
   createRating,
   updateRating,
 } from "../services/rating.service.js";
 
+export const getStores = async (
+  req,
+  res
+) => {
+  try {
 
-export const getStores =
-  async (req, res) => {
-    try {
+    const stores =
+      await getStoresForUser(
+        req.user.id,
+        req.query
+      );
 
-      const stores =
-        await getStoresForUser(
-          req.user.id,
-          req.query
-        );
+    return res.status(200).json({
+      success: true,
+      count: stores.length,
+      data: stores,
+    });
 
-      return res.status(200).json({
-        success: true,
-        count: stores.length,
-        data: stores,
-      });
+  } catch (error) {
 
-    } catch (error) {
+    console.error(error);
 
-      console.error(error);
+    return res.status(500).json({
+      success: false,
+      message:
+        "Server Error",
+    });
 
-      return res.status(500).json({
+  }
+};
+
+export const submitRating = async (
+  req,
+  res
+) => {
+  try {
+
+    const userId =
+      req.user.id;
+
+    const {
+      storeId,
+    } = req.params;
+
+    const {
+      rating,
+    } = req.body;
+
+    const store =
+      await findStoreById(
+        storeId
+      );
+
+    if (!store) {
+      return res.status(404).json({
         success: false,
         message:
-          "Server Error",
+          "Store not found",
       });
-
     }
-  };
 
+    const existingRating =
+      await findRating(
+        userId,
+        storeId
+      );
 
-  export const submitRating =
-  async (req, res) => {
-    try {
+    if (existingRating) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Rating already submitted. Use update rating.",
+      });
+    }
 
-      const userId =
-        req.user.id;
-
-      const {
+    const newRating =
+      await createRating(
+        userId,
         storeId,
-      } = req.params;
+        rating
+      );
 
-      const {
-        rating,
-      } = req.body;
+    return res.status(201).json({
+      success: true,
+      message:
+        "Rating submitted successfully",
+      data: newRating,
+    });
 
-      const existingRating =
-        await findRating(
-          userId,
-          storeId
-        );
+  } catch (error) {
 
-      if (
-        existingRating
-      ) {
-        return res.status(400).json({
-          success: false,
-          message:
-            "Rating already submitted. Use update rating.",
-        });
-      }
+    console.error(error);
 
-      const newRating =
-        await createRating(
-          userId,
-          storeId,
-          rating
-        );
+    return res.status(500).json({
+      success: false,
+      message:
+        "Server Error",
+    });
 
-      return res.status(201).json({
-        success: true,
-        data: newRating,
-      });
+  }
+};
 
-    } catch (error) {
+export const modifyRating = async (
+  req,
+  res
+) => {
+  try {
 
-      console.error(error);
+    const userId =
+      req.user.id;
 
-      return res.status(500).json({
+    const {
+      storeId,
+    } = req.params;
+
+    const {
+      rating,
+    } = req.body;
+
+    const store =
+      await findStoreById(
+        storeId
+      );
+
+    if (!store) {
+      return res.status(404).json({
         success: false,
         message:
-          "Server Error",
+          "Store not found",
       });
-
     }
-  };
 
+    const existingRating =
+      await findRating(
+        userId,
+        storeId
+      );
 
-  export const modifyRating =
-  async (req, res) => {
-    try {
+    if (!existingRating) {
+      return res.status(404).json({
+        success: false,
+        message:
+          "Rating not found",
+      });
+    }
 
-      const userId =
-        req.user.id;
-
-      const {
+    const updatedRating =
+      await updateRating(
+        userId,
         storeId,
-      } = req.params;
+        rating
+      );
 
-      const {
-        rating,
-      } = req.body;
+    return res.status(200).json({
+      success: true,
+      message:
+        "Rating updated successfully",
+      data: updatedRating,
+    });
 
-      const updatedRating =
-        await updateRating(
-          userId,
-          storeId,
-          rating
-        );
+  } catch (error) {
 
-      return res.status(200).json({
-        success: true,
-        data: updatedRating,
-      });
+    console.error(error);
 
-    } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message:
+        "Server Error",
+    });
 
-      console.error(error);
-
-      return res.status(500).json({
-        success: false,
-        message:
-          "Server Error",
-      });
-
-    }
-  };
+  }
+};

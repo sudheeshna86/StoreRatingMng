@@ -7,6 +7,7 @@ import adminRoutes from "./routes/admin.routes.js";
 import storeRoutes from "./routes/store.routes.js";
 import ownerRoutes from "./routes/owner.routes.js";
 import ratingRoutes from "./routes/rating.routes.js";
+import errorHandler from "./middlewares/error.middleware.js";
 const app = express();
 
 app.use(cors());
@@ -28,6 +29,7 @@ app.use(
   "/api",
   ratingRoutes
 );
+app.use(errorHandler);
 app.get("/", (req, res) => {
   res.json({
     success: true,
