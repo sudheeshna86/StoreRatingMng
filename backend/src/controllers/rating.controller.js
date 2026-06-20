@@ -1,0 +1,134 @@
+import {
+  getStoresForUser,
+  findRating,
+  createRating,
+  updateRating,
+} from "../services/rating.service.js";
+
+
+export const getStores =
+  async (req, res) => {
+    try {
+
+      const stores =
+        await getStoresForUser(
+          req.user.id,
+          req.query
+        );
+
+      return res.status(200).json({
+        success: true,
+        count: stores.length,
+        data: stores,
+      });
+
+    } catch (error) {
+
+      console.error(error);
+
+      return res.status(500).json({
+        success: false,
+        message:
+          "Server Error",
+      });
+
+    }
+  };
+
+
+  export const submitRating =
+  async (req, res) => {
+    try {
+
+      const userId =
+        req.user.id;
+
+      const {
+        storeId,
+      } = req.params;
+
+      const {
+        rating,
+      } = req.body;
+
+      const existingRating =
+        await findRating(
+          userId,
+          storeId
+        );
+
+      if (
+        existingRating
+      ) {
+        return res.status(400).json({
+          success: false,
+          message:
+            "Rating already submitted. Use update rating.",
+        });
+      }
+
+      const newRating =
+        await createRating(
+          userId,
+          storeId,
+          rating
+        );
+
+      return res.status(201).json({
+        success: true,
+        data: newRating,
+      });
+
+    } catch (error) {
+
+      console.error(error);
+
+      return res.status(500).json({
+        success: false,
+        message:
+          "Server Error",
+      });
+
+    }
+  };
+
+
+  export const modifyRating =
+  async (req, res) => {
+    try {
+
+      const userId =
+        req.user.id;
+
+      const {
+        storeId,
+      } = req.params;
+
+      const {
+        rating,
+      } = req.body;
+
+      const updatedRating =
+        await updateRating(
+          userId,
+          storeId,
+          rating
+        );
+
+      return res.status(200).json({
+        success: true,
+        data: updatedRating,
+      });
+
+    } catch (error) {
+
+      console.error(error);
+
+      return res.status(500).json({
+        success: false,
+        message:
+          "Server Error",
+      });
+
+    }
+  };

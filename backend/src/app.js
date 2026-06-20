@@ -6,6 +6,7 @@ import testRoutes from "./routes/test.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import storeRoutes from "./routes/store.routes.js";
 import ownerRoutes from "./routes/owner.routes.js";
+import ratingRoutes from "./routes/rating.routes.js";
 const app = express();
 
 app.use(cors());
@@ -21,6 +22,11 @@ app.use(
 app.use(
   "/api/owner",
   ownerRoutes
+);
+
+app.use(
+  "/api",
+  ratingRoutes
 );
 app.get("/", (req, res) => {
   res.json({
