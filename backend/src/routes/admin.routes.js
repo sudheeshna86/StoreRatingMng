@@ -2,7 +2,16 @@ import express from "express";
 
 import {
   getDashboard,
-} from "../controllers/admin.controller.js";
+  createUser,
+  getAllUsers,
+  getUserDetails,
+} from "../controllers/admin.controller.js";    
+
+import {
+  createUserValidator
+} from "../validators/user.validator.js";
+
+import validate from "../middlewares/validation.middleware.js";
 
 import authMiddleware from "../middlewares/auth.middleware.js";
 
@@ -17,4 +26,26 @@ router.get(
   getDashboard
 );
 
+router.post(
+  "/users",
+  authMiddleware,
+  authorize("ADMIN"),
+  createUserValidator,
+  validate,
+  createUser
+);
+
+router.get(
+  "/users",
+  authMiddleware,
+  authorize("ADMIN"),
+  getAllUsers
+);
+
+router.get(
+  "/users/:id",
+  authMiddleware,
+  authorize("ADMIN"),
+  getUserDetails
+);
 export default router;
