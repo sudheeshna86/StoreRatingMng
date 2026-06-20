@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import {
   createUser,
   findUserByEmail,
+   updatePassword,
 } from "../services/auth.service.js";
 
 import generateToken from "../utils/generateToken.js";
@@ -106,3 +107,76 @@ export const login = async (req, res) => {
     });
   }
 };
+
+
+export const changePassword =
+  async (req, res) => {
+    try {
+
+      const userId =
+        req.user.id;
+
+      const {
+        currentPassword,
+        newPassword,
+        confirmPassword,
+      } = req.body;
+
+      if (
+        newPassword !==
+        confirmPassword
+      ) {
+        return res.status(400).json({
+          success: false,
+          message:
+            "Passwords do not match",
+        });
+      }
+
+      const user =
+        await findUserById(
+          userId
+        );
+
+      const isMatch =
+        await bcrypt.compare(
+          currentPassword,
+          user.password
+        );
+
+      if (!isMatch) {
+        return res.status(400).json({
+          success: false,
+          message:
+            "Current password is incorrect",
+        });
+      }
+
+      const hashedPassword =
+        await bcrypt.hash(
+          newPassword,
+          10
+        );
+
+      await updatePassword(
+        userId,
+        hashedPassword
+      );
+
+      return res.status(200).json({
+        success: true,
+        message:
+          "Password updated successfully",
+      });
+
+    } catch (error) {
+
+      console.error(error);
+
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+
+    }
+  };

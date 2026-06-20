@@ -5,6 +5,7 @@ import authRoutes from "./routes/auth.routes.js";
 import testRoutes from "./routes/test.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import storeRoutes from "./routes/store.routes.js";
+import ownerRoutes from "./routes/owner.routes.js";
 const app = express();
 
 app.use(cors());
@@ -16,6 +17,10 @@ app.use("/api/admin", adminRoutes);
 app.use(
   "/api/admin/stores",
   storeRoutes
+);
+app.use(
+  "/api/owner",
+  ownerRoutes
 );
 app.get("/", (req, res) => {
   res.json({
