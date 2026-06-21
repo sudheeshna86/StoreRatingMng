@@ -4,7 +4,7 @@ export const createUserValidator = [
   body("name")
     .trim()
     .isLength({ min: 20, max: 60 })
-    .withMessage("Name must be between 20 and 60 characters"),
+    .withMessage("Name must be between 20 and 60 character"),
 
   body("email")
     .trim()
