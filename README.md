@@ -250,19 +250,22 @@ The frontend starts on `http://localhost:5173` by default.
 
 #### `POST /api/auth/register`
 
-*Request and response screenshot*:
+<img width="1366" height="768" alt="Screenshot (4525)" src="https://github.com/user-attachments/assets/2a749799-2d00-4e6d-bb5c-0821636d90ed" />
+
 
 
 
 #### `POST /api/auth/login`
 
-*Request and response screenshot*:
+<img width="1366" height="768" alt="Screenshot (4526)" src="https://github.com/user-attachments/assets/fb336abb-872b-4846-9a31-e0235706997a" />
+
 
 
 
 #### `PUT /api/auth/change-password`
 
-*Request and response screenshot*:
+<img width="1366" height="768" alt="Screenshot (4528)" src="https://github.com/user-attachments/assets/dcb31b67-beaa-4d8c-87f1-6e3764eb78ca" />
+
 
 
 
@@ -272,31 +275,44 @@ The frontend starts on `http://localhost:5173` by default.
 
 #### `GET /api/admin/dashboard`
 
-*Request and response screenshot*:
+<img width="1366" height="768" alt="Screenshot (4553)" src="https://github.com/user-attachments/assets/466dafb6-966a-40bf-86d7-400d2245b730" />
+
 
 
 
 #### `GET /api/admin/users`
 
-*Request and response screenshot*:
+<img width="1366" height="768" alt="Screenshot (4530)" src="https://github.com/user-attachments/assets/bafc5a9e-95df-4af7-a108-d143a8b341ac" />
+
 
 
 
 #### `POST /api/admin/users`
 
-*Request and response screenshot*:
+<img width="1366" height="768" alt="Screenshot (4529)" src="https://github.com/user-attachments/assets/e0f924ea-04a5-4c2b-a0c9-d6a1f1f424f6" />
+
+#### `GET /api/admin/users/:id`
+
+<img width="1366" height="768" alt="Screenshot (4531)" src="https://github.com/user-attachments/assets/a60e59ee-9354-4752-b0c6-2e2b0c380807" />
+
 
 
 
 #### `GET /api/admin/stores`
 
-*Request and response screenshot*:
+<img width="1366" height="768" alt="Screenshot (4533)" src="https://github.com/user-attachments/assets/64cc6cad-04cb-47c6-9973-ddb604b509a4" />
+
 
 
 
 #### `POST /api/admin/stores`
 
-*Request and response screenshot*:
+<img width="1366" height="768" alt="Screenshot (4532)" src="https://github.com/user-attachments/assets/be3d1d25-bd81-432a-9f43-ed41b04cf893" />
+
+#### `GET /api/admin/stores/:id`
+
+<img width="1366" height="768" alt="Screenshot (4534)" src="https://github.com/user-attachments/assets/d0140bd2-8646-42a5-805c-4d25ea1e6183" />
+
 
 
 
@@ -306,13 +322,15 @@ The frontend starts on `http://localhost:5173` by default.
 
 #### `GET /api/owner/dashboard`
 
-*Request and response screenshot*:
+<img width="1366" height="768" alt="Screenshot (4538)" src="https://github.com/user-attachments/assets/3c58ea3f-5b13-46f5-8ee4-ea6b987a72db" />
+
 
 
 
 #### `GET /api/owner/ratings`
 
-*Request and response screenshot*:
+<img width="1366" height="768" alt="Screenshot (4539)" src="https://github.com/user-attachments/assets/f4ac8c37-4367-4434-9e3f-83184e27f71b" />
+
 
 
 
@@ -322,19 +340,22 @@ The frontend starts on `http://localhost:5173` by default.
 
 #### `GET /api/stores`
 
-*Request and response screenshot*:
+<img width="1366" height="768" alt="Screenshot (4535)" src="https://github.com/user-attachments/assets/29fb4166-c46f-4472-9dd2-50f8b397a2ea" />
+
 
 
 
 #### `POST /api/stores/:storeId/rating`
 
-*Request and response screenshot*:
+<img width="1366" height="768" alt="Screenshot (4536)" src="https://github.com/user-attachments/assets/69cdb059-b9cd-4b9d-b408-b1f40e34c029" />
+
 
 
 
 #### `PUT /api/stores/:storeId/rating`
 
-*Request and response screenshot*:
+<img width="1366" height="768" alt="Screenshot (4537)" src="https://github.com/user-attachments/assets/d79cbb78-4127-4a1f-aa09-7f6eb85157b2" />
+
 
 
 
