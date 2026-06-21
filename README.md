@@ -241,12 +241,91 @@ The frontend starts on `http://localhost:5173` by default.
 
 ## 📸 Postman Screenshots
 
-- Add screenshots for API request examples and validation flows here.
-- Example areas:
-  - Auth request payload
-  - Admin users list
-  - Store rating request
-  - Store owner rating response
+### 1. Auth APIs
+
+#### `POST /api/auth/register`
+
+*Request and response screenshot*:
+
+
+
+#### `POST /api/auth/login`
+
+*Request and response screenshot*:
+
+
+
+---
+
+### 2. Admin APIs
+
+#### `GET /api/admin/dashboard`
+
+*Request and response screenshot*:
+
+
+
+#### `GET /api/admin/users`
+
+*Request and response screenshot*:
+
+
+
+#### `POST /api/admin/users`
+
+*Request and response screenshot*:
+
+
+
+#### `GET /api/admin/stores`
+
+*Request and response screenshot*:
+
+
+
+#### `POST /api/admin/stores`
+
+*Request and response screenshot*:
+
+
+
+---
+
+### 3. Owner APIs
+
+#### `GET /api/owner/dashboard`
+
+*Request and response screenshot*:
+
+
+
+#### `GET /api/owner/ratings`
+
+*Request and response screenshot*:
+
+
+
+---
+
+### 4. User / Store Rating APIs
+
+#### `GET /api/stores`
+
+*Request and response screenshot*:
+
+
+
+#### `POST /api/stores/:storeId/rating`
+
+*Request and response screenshot*:
+
+
+
+#### `PUT /api/stores/:storeId/rating`
+
+*Request and response screenshot*:
+
+
 
 ---
 
