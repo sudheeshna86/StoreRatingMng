@@ -95,13 +95,16 @@ export const getAllUsers = async (
   res
 ) => {
   try {
-    const users =
-      await getUsers(req.query);
+    const {
+      rows,
+      pagination,
+    } = await getUsers(req.query);
 
     return res.status(200).json({
       success: true,
-      count: users.length,
-      data: users,
+      count: pagination.totalRecords,
+      pagination,
+      data: rows,
     });
   } catch (error) {
     console.error(error);

@@ -88,25 +88,24 @@ export const getAllStores = async (
   res
 ) => {
   try {
-
-    const stores =
-      await getStores(req.query);
+    const {
+      rows,
+      pagination,
+    } = await getStores(req.query);
 
     return res.status(200).json({
       success: true,
-      count: stores.length,
-      data: stores,
+      count: pagination.totalRecords,
+      pagination,
+      data: rows,
     });
-
   } catch (error) {
-
     console.error(error);
 
     return res.status(500).json({
       success: false,
       message: "Server Error",
     });
-
   }
 };
 

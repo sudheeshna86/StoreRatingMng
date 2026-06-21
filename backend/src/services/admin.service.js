@@ -28,6 +28,9 @@ export const getDashboardStats = async () => {
   };
 };
 
+
+
+
 export const findUserByEmail = async (email) => {
   const query = `
     SELECT *
@@ -84,15 +87,14 @@ export const getUsers = async ({
   role,
   sortBy = "created_at",
   order = "DESC",
+  page = 1,
+  limit = 10,
 }) => {
-  let query = `
-    SELECT
-      id,
-      name,
-      email,
-      address,
-      role,
-      created_at
+  const currentPage = Math.max(1, parseInt(page, 10) || 1);
+  const pageLimit = Math.max(1, parseInt(limit, 10) || 10);
+  const offset = (currentPage - 1) * pageLimit;
+
+  let baseQuery = `
     FROM users
     WHERE 1=1
   `;
@@ -101,47 +103,52 @@ export const getUsers = async ({
   let count = 1;
 
   if (name) {
-    query += ` AND name ILIKE $${count++}`;
+    baseQuery += ` AND name ILIKE $${count++}`;
     values.push(`%${name}%`);
   }
 
   if (email) {
-    query += ` AND email ILIKE $${count++}`;
+    baseQuery += ` AND email ILIKE $${count++}`;
     values.push(`%${email}%`);
   }
 
   if (address) {
-    query += ` AND address ILIKE $${count++}`;
+    baseQuery += ` AND address ILIKE $${count++}`;
     values.push(`%${address}%`);
   }
 
   if (role) {
-    query += ` AND role = $${count++}`;
+    baseQuery += ` AND role = $${count++}`;
     values.push(role);
   }
+
+  const countQuery = `SELECT COUNT(*) ${baseQuery}`;
+  const countResult = await pool.query(
+    countQuery,
+    values
+  );
+
+  const totalRecords = Number(
+    countResult.rows[0].count
+  );
+  const totalPages = Math.max(
+    1,
+    Math.ceil(totalRecords / pageLimit)
+  );
+
+  const safePage = Math.min(currentPage, totalPages);
+  const currentPageClamped = Math.max(1, safePage);
+  const offsetClamped = (currentPageClamped - 1) * pageLimit;
 
   const allowedSortFields = [
     "name",
     "email",
+    "address",
+    "role",
     "created_at",
   ];
 
-  if (allowedSortFields.includes(sortBy)) {
-    query += ` ORDER BY ${sortBy} ${
-      order === "ASC" ? "ASC" : "DESC"
-    }`;
-  }
-
-  const result = await pool.query(
-    query,
-    values
-  );
-
-  return result.rows;
-};
-
-export const getUserById = async (id) => {
-  const query = `
+  let query = `
     SELECT
       id,
       name,
@@ -149,14 +156,63 @@ export const getUserById = async (id) => {
       address,
       role,
       created_at
-    FROM users
-    WHERE id = $1
+    ${baseQuery}
   `;
 
-  const result = await pool.query(
-    query,
-    [id]
-  );
+  if (allowedSortFields.includes(sortBy)) {
+    query += ` ORDER BY ${sortBy} ${
+      order === "ASC" ? "ASC" : "DESC"
+    }`;
+  }
+
+  query += ` LIMIT $${count++} OFFSET $${count++}`;
+  const result = await pool.query(query, [
+    ...values,
+    pageLimit,
+    offsetClamped,
+  ]);
+
+  return {
+    rows: result.rows,
+    pagination: {
+      currentPage: currentPageClamped,
+      limit: pageLimit,
+      totalRecords,
+      totalPages,
+    },
+  };
+};
+
+export const getUserById = async (id) => {
+  const query = `
+    SELECT
+      u.id,
+      u.name,
+      u.email,
+      u.address,
+      u.role,
+      u.created_at,
+      CASE
+        WHEN u.role = 'STORE_OWNER' THEN
+          ROUND(
+            COALESCE(
+              AVG(r.rating),
+              0
+            ),
+            1
+          )
+        ELSE NULL
+      END AS store_rating
+    FROM users u
+    LEFT JOIN stores s
+      ON s.owner_id = u.id
+    LEFT JOIN ratings r
+      ON r.store_id = s.id
+    WHERE u.id = $1
+    GROUP BY u.id
+  `;
+
+  const result = await pool.query(query, [id]);
 
   return result.rows[0];
 };

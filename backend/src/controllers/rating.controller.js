@@ -11,21 +11,21 @@ export const getStores = async (
   res
 ) => {
   try {
-
-    const stores =
-      await getStoresForUser(
-        req.user.id,
-        req.query
-      );
+    const {
+      rows,
+      pagination,
+    } = await getStoresForUser(
+      req.user.id,
+      req.query
+    );
 
     return res.status(200).json({
       success: true,
-      count: stores.length,
-      data: stores,
+      count: pagination.totalRecords,
+      pagination,
+      data: rows,
     });
-
   } catch (error) {
-
     console.error(error);
 
     return res.status(500).json({
@@ -33,7 +33,6 @@ export const getStores = async (
       message:
         "Server Error",
     });
-
   }
 };
 
