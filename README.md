@@ -260,6 +260,12 @@ The frontend starts on `http://localhost:5173` by default.
 
 
 
+#### `PUT /api/auth/change-password`
+
+*Request and response screenshot*:
+
+
+
 ---
 
 ### 2. Admin APIs
