@@ -14,6 +14,15 @@ const Navbar = () => {
         {user && <span className="text-slate-700 font-medium">{user.name}</span>}
         {user && (
           <button
+            type="button"
+            onClick={() => navigate('/change-password')}
+            className="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200 transition"
+          >
+            Change Password
+          </button>
+        )}
+        {user && (
+          <button
             onClick={() => {
               logout();
               navigate('/login');

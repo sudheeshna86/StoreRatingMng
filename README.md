@@ -27,6 +27,7 @@ This repository contains two main parts:
 ## 🚀 Key Features
 
 - JWT authentication with login/register
+- Password change for authenticated users
 - Role-based dashboard routing for `ADMIN`, `STORE_OWNER`, and `USER`
 - Secure protected routes for each role
 - Admin user management with pagination and user creation
@@ -122,6 +123,7 @@ StoreRating/
 ### Auth
 - `POST /api/auth/register` — register a new user
 - `POST /api/auth/login` — login and retrieve JWT token
+- `PUT /api/auth/change-password` — authenticated password update
 
 ### Admin
 - `GET /api/admin/dashboard` — admin stats

@@ -8,6 +8,7 @@ import AdminStoresPage from './pages/AdminStoresPage.jsx';
 import OwnerDashboardPage from './pages/OwnerDashboardPage.jsx';
 import OwnerRatingsPage from './pages/OwnerRatingsPage.jsx';
 import UserStoresPage from './pages/UserStoresPage.jsx';
+import ChangePasswordPage from './pages/ChangePasswordPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import DashboardLayout from './components/DashboardLayout.jsx';
@@ -59,6 +60,13 @@ function App() {
           <Route path="stores" element={<UserStoresPage />} />
         </Route>
 
+        <Route path="/change-password" element={
+          <ProtectedRoute>
+            <DashboardLayout />
+          </ProtectedRoute>
+        }>
+          <Route index element={<ChangePasswordPage />} />
+        </Route>
         <Route path="/404" element={<NotFoundPage />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
       </Routes>

@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { login as loginApi, register as registerApi } from '../api/authApi';
+import { login as loginApi, register as registerApi, changePassword as changePasswordApi } from '../api/authApi';
 import { clearAuth, getToken, getUser, storeAuth } from '../utils/authStorage';
 
 const AuthContext = createContext(null);
@@ -25,6 +25,11 @@ export const AuthProvider = ({ children }) => {
     return response;
   };
 
+  const changePassword = async (payload) => {
+    const response = await changePasswordApi(payload);
+    return response;
+  };
+
   const logout = () => {
     clearAuth();
     setToken(null);
@@ -32,7 +37,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const value = useMemo(
-    () => ({ token, user, loading, login, logout, register }),
+    () => ({ token, user, loading, login, logout, register, changePassword }),
     [token, user, loading]
   );
 
