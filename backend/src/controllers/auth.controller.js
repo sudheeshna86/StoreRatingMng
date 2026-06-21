@@ -4,6 +4,7 @@ import {
   createUser,
   findUserByEmail,
    updatePassword,
+   findUserById,
 } from "../services/auth.service.js";
 
 import generateToken from "../utils/generateToken.js";
@@ -17,6 +18,7 @@ export const register = async (req, res) => {
       address,
     } = req.body;
 
+   
     const existingUser =
       await findUserByEmail(email);
 
