@@ -1,10 +1,10 @@
 # StoreRating
 
-A full-stack store rating application with role-based dashboards for Admin, Store Owner, and User. Built with a Node.js + Express + PostgreSQL backend and a React + Vite + Tailwind CSS frontend.
+A full-stack store rating application with role-based dashboards for Admin, Store Owner, and User. Built with a Node.js + Express + PostgreSQL with Supabase backend and a React + Vite + Tailwind CSS frontend.
 
 ---
 
-## 🔗 Project Overview
+##  Project Overview
 
 StoreRating enables:
 - Users to browse stores, submit and update ratings
@@ -17,14 +17,21 @@ This repository contains two main parts:
 
 ---
 
-## 🎬 Demo Video
+##  Demo Video
 
-- Add a demo video link here to showcase the app flow.
-- Example: `https://youtube.com/...` or a screen recording link.
+- Embedded demo (Google Drive preview) — should play in Markdown viewers that allow iframes:
+
+<div align="center">
+	<iframe src="https://drive.google.com/file/d/1bxVb2OMBED9amLXJbU8RE2UldSiYgYhf/preview" width="800" height="450" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+
+- Fallback: [Open demo video in Google Drive](https://drive.google.com/file/d/1bxVb2OMBED9amLXJbU8RE2UldSiYgYhf/view?usp=sharing)
+
+Note: GitHub's README rendering may strip iframes for security. If you don't see the embedded player on GitHub, use the fallback link above to open the video in Google Drive.
 
 ---
 
-## 🚀 Key Features
+##  Key Features
 
 - JWT authentication with login/register
 - Password change for authenticated users
@@ -39,7 +46,7 @@ This repository contains two main parts:
 
 ---
 
-## 🧠 Technical Stack
+##  Technical Stack
 
 ### Frontend
 - React 19
@@ -62,7 +69,7 @@ This repository contains two main parts:
 
 ---
 
-## 📁 Folder Structure
+##  Folder Structure
 
 ```
 StoreRating/
@@ -98,7 +105,7 @@ StoreRating/
 
 ---
 
-## 🧩 Available Pages
+##  Available Pages
 
 ### Public
 - `/` — Landing page
@@ -120,7 +127,7 @@ StoreRating/
 
 ---
 
-## 🔧 Backend API Endpoints
+##  Backend API Endpoints
 
 ### Auth
 - `POST /api/auth/register` — register a new user
@@ -148,7 +155,7 @@ StoreRating/
 
 ---
 
-## 🎯 Role-Based Behavior
+##  Role-Based Behavior
 
 ### Admin
 - Manage users and stores
@@ -173,14 +180,14 @@ Create `.env` files for backend and optionally frontend.
 ### Backend `.env`
 
 ```env
-PORT=5000
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=postgres
-DB_PASSWORD=your_password
-DB_NAME=postgres
-JWT_SECRET=your_jwt_secret
-JWT_EXPIRES_IN=7d
+PORT=xxxx
+DB_HOST=xxxxx
+DB_PORT=xxxx
+DB_USER=xxxx
+DB_PASSWORD=xxxxx
+DB_NAME=xxx
+JWT_SECRET=xxx
+JWT_EXPIRES_IN=xx
 ```
 
 ### Frontend `.env`
@@ -191,7 +198,7 @@ VITE_API_BASE_URL=http://localhost:5000/api
 
 ---
 
-## 🚀 Setup Instructions
+##  Setup Instructions
 
 ### 1. Backend
 
@@ -216,17 +223,11 @@ The frontend starts on `http://localhost:5173` by default.
 
 ---
 
-## ✅ How to Use
 
-1. Start PostgreSQL and configure `.env`
-2. Run backend server
-3. Run frontend app
-4. Register or login
-5. Use dashboards based on your role
 
 ---
 
-## 🎯 Role-Based Behavior
+##  Role-Based Behavior
 
 ### Admin
 - Manage users and stores
@@ -244,7 +245,7 @@ The frontend starts on `http://localhost:5173` by default.
 
 ---
 
-## 📸 Postman Screenshots
+##  Postman Screenshots
 
 ### 1. Auth APIs
 
@@ -361,16 +362,11 @@ The frontend starts on `http://localhost:5173` by default.
 
 ---
 
-## ✅ Notes
 
-- Auth token is stored in frontend `localStorage`
-- API client injects JWT token automatically on protected calls
-- Backend routes use middleware for authentication and role authorization
-- User stores page supports both rating submission and updates
 
 ---
 
-## 📦 Dependencies
+##  Dependencies
 
 ### Backend
 - `express`
@@ -395,6 +391,6 @@ The frontend starts on `http://localhost:5173` by default.
 
 ---
 
-##  Contact
 
-This README is written for the StoreRating project in this repository. If you want, I can also add a `project demo` section, `schema overview`, or `seed data steps`.
+
+
