@@ -28,10 +28,11 @@ This repository contains two main parts:
 
 - JWT authentication with login/register
 - Password change for authenticated users
+- Change Password page for signed-in users
 - Role-based dashboard routing for `ADMIN`, `STORE_OWNER`, and `USER`
 - Secure protected routes for each role
-- Admin user management with pagination and user creation
-- Admin store management with pagination and store creation
+- Admin user management with pagination, user profile view, and role assignment
+- Admin store management with store owner selection via dropdown for owners without existing stores
 - Store owner dashboard and rating report
 - User store browsing, rating submission, and rating updates
 - Tailwind CSS styling with responsive layout
@@ -103,11 +104,12 @@ StoreRating/
 - `/` — Landing page
 - `/login` — Login page
 - `/register` — Register page
+- `/change-password` — Authenticated password change page
 
 ### Admin
 - `/admin/dashboard` — Admin metrics
-- `/admin/users` — User management
-- `/admin/stores` — Store management
+- `/admin/users` — User management and view user profile details
+- `/admin/stores` — Store management with owner selection dropdown
 
 ### Store Owner
 - `/owner/dashboard` — Store owner summary
