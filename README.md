@@ -143,6 +143,24 @@ StoreRating/
 
 ---
 
+## 🎯 Role-Based Behavior
+
+### Admin
+- Manage users and stores
+- View admin dashboard stats
+- Create new users and assign roles
+
+### Store Owner
+- View store performance
+- See ratings from users
+
+### User
+- Browse stores
+- Submit a new rating
+- Update existing rating
+
+---
+
 ## ⚙️ Environment Variables
 
 Create `.env` files for backend and optionally frontend.
