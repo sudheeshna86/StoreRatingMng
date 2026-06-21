@@ -5,6 +5,7 @@ import {
   createUser,
   getAllUsers,
   getUserDetails,
+  getStoreOwnersWithoutStoreHandler,
 } from "../controllers/admin.controller.js";    
 
 import {
@@ -47,5 +48,12 @@ router.get(
   authMiddleware,
   authorize("ADMIN"),
   getUserDetails
+);
+
+router.get(
+  "/owners-without-store",
+  authMiddleware,
+  authorize("ADMIN"),
+  getStoreOwnersWithoutStoreHandler
 );
 export default router;

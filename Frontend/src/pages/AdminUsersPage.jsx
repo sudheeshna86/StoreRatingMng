@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getUsers, createUser } from '../api/adminApi';
+import { getUsers, getUserDetails, createUser } from '../api/adminApi';
 import Pagination from '../components/Pagination';
 import Loader from '../components/Loader';
 
@@ -11,6 +11,9 @@ const AdminUsersPage = () => {
   const [pagination, setPagination] = useState({ totalPages: 1 });
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [detailsModalOpen, setDetailsModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [detailsLoading, setDetailsLoading] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', address: '', password: '', role: 'USER' });
   const [error, setError] = useState('');
 
@@ -26,6 +29,21 @@ const AdminUsersPage = () => {
   useEffect(() => {
     loadUsers();
   }, [page, role]);
+
+  const openUserDetails = async (userId) => {
+    setDetailsLoading(true);
+    setDetailsModalOpen(true);
+
+    try {
+      const response = await getUserDetails(userId);
+      setSelectedUser(response.data);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Unable to load user details.');
+      setSelectedUser(null);
+    } finally {
+      setDetailsLoading(false);
+    }
+  };
 
   const handleCreate = async (event) => {
     event.preventDefault();
@@ -88,6 +106,7 @@ const AdminUsersPage = () => {
                 <th className="px-6 py-4 text-left text-sm font-semibold text-slate-600">Email</th>
                 <th className="px-6 py-4 text-left text-sm font-semibold text-slate-600">Address</th>
                 <th className="px-6 py-4 text-left text-sm font-semibold text-slate-600">Role</th>
+              <th className="px-6 py-4 text-left text-sm font-semibold text-slate-600">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-200 bg-white">
@@ -97,6 +116,15 @@ const AdminUsersPage = () => {
                   <td className="px-6 py-4 text-sm text-slate-700">{user.email}</td>
                   <td className="px-6 py-4 text-sm text-slate-700">{user.address}</td>
                   <td className="px-6 py-4 text-sm text-slate-700">{user.role}</td>
+                  <td className="px-6 py-4 text-sm text-slate-700">
+                    <button
+                      type="button"
+                      onClick={() => openUserDetails(user.id)}
+                      className="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200 transition"
+                    >
+                      View profile
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -105,6 +133,45 @@ const AdminUsersPage = () => {
       )}
 
       <Pagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} onPageChange={setPage} />
+
+      {detailsModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 px-4 py-6">
+          <div className="w-full max-w-lg rounded-3xl bg-white p-8 shadow-2xl">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-semibold text-slate-900">User profile</h3>
+              <button type="button" onClick={() => setDetailsModalOpen(false)} className="text-slate-500 hover:text-slate-900">Close</button>
+            </div>
+            {detailsLoading ? (
+              <div className="text-slate-600">Loading profile...</div>
+            ) : selectedUser ? (
+              <div className="space-y-4 text-slate-700">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Name</p>
+                  <p className="text-lg font-semibold">{selectedUser.name}</p>
+                </div>
+                <div>
+                  <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Email</p>
+                  <p>{selectedUser.email}</p>
+                </div>
+                <div>
+                  <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Address</p>
+                  <p>{selectedUser.address}</p>
+                </div>
+                <div>
+                  <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Role</p>
+                  <p>{selectedUser.role}</p>
+                </div>
+                <div>
+                  <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Store rating</p>
+                  <p>{selectedUser.store_rating === null ? 'N/A' : selectedUser.store_rating}</p>
+                </div>
+              </div>
+            ) : (
+              <div className="text-red-600">Unable to load user profile.</div>
+            )}
+          </div>
+        </div>
+      )}
 
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 px-4 py-6">

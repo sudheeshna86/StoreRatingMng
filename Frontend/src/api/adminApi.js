@@ -10,6 +10,11 @@ export const getUsers = async (params) => {
   return response.data;
 };
 
+export const getUserDetails = async (id) => {
+  const response = await apiClient.get(`/admin/users/${id}`);
+  return response.data;
+};
+
 export const createUser = async (payload) => {
   const response = await apiClient.post('/admin/users', payload);
   return response.data;
@@ -20,6 +25,10 @@ export const getStores = async (params) => {
   return response.data;
 };
 
+export const getStoreOwnersWithoutStore = async () => {
+  const response = await apiClient.get('/admin/owners-without-store');
+  return response.data;
+};
 export const createStore = async (payload) => {
   const response = await apiClient.post('/admin/stores', payload);
   return response.data;

@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { getStores, createStore } from '../api/adminApi';
+import { getStores, createStore, getStoreOwnersWithoutStore } from '../api/adminApi';
 import Pagination from '../components/Pagination';
 import Loader from '../components/Loader';
 
 const AdminStoresPage = () => {
   const [stores, setStores] = useState([]);
+  const [eligibleOwners, setEligibleOwners] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [ownersLoading, setOwnersLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState({ totalPages: 1 });
   const [form, setForm] = useState({ name: '', email: '', address: '', ownerId: '' });
@@ -27,7 +29,20 @@ const AdminStoresPage = () => {
 
   useEffect(() => {
     loadStores();
+    loadEligibleOwners();
   }, [page]);
+
+  const loadEligibleOwners = async () => {
+    setOwnersLoading(true);
+    try {
+      const response = await getStoreOwnersWithoutStore();
+      setEligibleOwners(response.data);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Unable to load owner list.');
+    } finally {
+      setOwnersLoading(false);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -114,8 +129,20 @@ const AdminStoresPage = () => {
                 <input value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} className="w-full rounded-2xl border border-slate-300 px-4 py-3 focus:border-indigo-500 focus:outline-none" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Owner user id</label>
-                <input value={form.ownerId} onChange={(e) => setForm({ ...form, ownerId: e.target.value })} className="w-full rounded-2xl border border-slate-300 px-4 py-3 focus:border-indigo-500 focus:outline-none" />
+                <label className="block text-sm font-medium text-slate-700 mb-2">Store owner</label>
+                <select
+                  value={form.ownerId}
+                  onChange={(e) => setForm({ ...form, ownerId: e.target.value })}
+                  className="w-full rounded-2xl border border-slate-300 px-4 py-3 focus:border-indigo-500 focus:outline-none"
+                >
+                  <option value="">Select store owner</option>
+                  {eligibleOwners.map((owner) => (
+                    <option key={owner.id} value={owner.id}>
+                      {owner.name} ({owner.email})
+                    </option>
+                  ))}
+                </select>
+                {ownersLoading && <p className="text-sm text-slate-500 mt-2">Loading available owners...</p>}
               </div>
               {error && <p className="text-sm text-red-600">{error}</p>}
               <div className="flex justify-end gap-3 pt-4">

@@ -183,6 +183,24 @@ export const getUsers = async ({
   };
 };
 
+export const getStoreOwnersWithoutStore = async () => {
+  const query = `
+    SELECT
+      u.id,
+      u.name,
+      u.email
+    FROM users u
+    LEFT JOIN stores s
+      ON s.owner_id = u.id
+    WHERE u.role = 'STORE_OWNER'
+      AND s.id IS NULL
+    ORDER BY u.name ASC
+  `;
+
+  const result = await pool.query(query);
+  return result.rows;
+};
+
 export const getUserById = async (id) => {
   const query = `
     SELECT

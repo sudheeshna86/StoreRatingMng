@@ -128,8 +128,9 @@ StoreRating/
 ### Admin
 - `GET /api/admin/dashboard` — admin stats
 - `GET /api/admin/users` — list users with pagination
-- `POST /api/admin/users` — create user
 - `GET /api/admin/users/:id` — user details
+- `GET /api/admin/owners-without-store` — list store owners without a store
+- `POST /api/admin/users` — create user
 - `GET /api/admin/stores` — list stores with pagination
 - `POST /api/admin/stores` — create a store
 - `GET /api/admin/stores/:id` — store details

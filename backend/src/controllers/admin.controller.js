@@ -6,6 +6,7 @@ import {
   createUserByAdmin,
   getUsers,
   getUserById,
+  getStoreOwnersWithoutStore,
 } from "../services/admin.service.js";
 
 export const getDashboard = async (req,res) => {
@@ -105,6 +106,27 @@ export const getAllUsers = async (
       count: pagination.totalRecords,
       pagination,
       data: rows,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+export const getStoreOwnersWithoutStoreHandler = async (
+  req,
+  res
+) => {
+  try {
+    const owners = await getStoreOwnersWithoutStore();
+
+    return res.status(200).json({
+      success: true,
+      data: owners,
     });
   } catch (error) {
     console.error(error);
