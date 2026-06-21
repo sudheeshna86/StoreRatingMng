@@ -25,6 +25,11 @@ export const getStores = async (params) => {
   return response.data;
 };
 
+export const getStoreDetails = async (id) => {
+  const response = await apiClient.get(`/admin/stores/${id}`);
+  return response.data;
+};
+
 export const getStoreOwnersWithoutStore = async () => {
   const response = await apiClient.get('/admin/owners-without-store');
   return response.data;

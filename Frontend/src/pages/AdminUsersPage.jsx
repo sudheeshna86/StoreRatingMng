@@ -28,7 +28,7 @@ const AdminUsersPage = () => {
 
   useEffect(() => {
     loadUsers();
-  }, [page, role]);
+  }, [page, role, search]);
 
   const openUserDetails = async (userId) => {
     setDetailsLoading(true);

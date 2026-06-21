@@ -95,6 +95,9 @@ export const findStoreOwnerById =
   let baseQuery = `
     FROM stores s
 
+    LEFT JOIN users u
+      ON s.owner_id = u.id
+
     LEFT JOIN ratings r
       ON s.id = r.store_id
 
@@ -146,6 +149,7 @@ export const findStoreOwnerById =
       s.name,
       s.email,
       s.address,
+      u.name AS owner_name,
 
       ROUND(
         COALESCE(
@@ -155,7 +159,7 @@ export const findStoreOwnerById =
         1
       ) AS rating
     ${baseQuery}
-    GROUP BY s.id
+    GROUP BY s.id, u.name
   `;
 
   const allowedSortFields = [
