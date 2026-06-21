@@ -17,6 +17,13 @@ This repository contains two main parts:
 
 ---
 
+## 🎬 Demo Video
+
+- Add a demo video link here to showcase the app flow.
+- Example: `https://youtube.com/...` or a screen recording link.
+
+---
+
 ## 🚀 Key Features
 
 - JWT authentication with login/register
@@ -214,7 +221,18 @@ The frontend starts on `http://localhost:5173` by default.
 
 ---
 
-## 🧪 Notes
+## 📸 Postman Screenshots
+
+- Add screenshots for API request examples and validation flows here.
+- Example areas:
+  - Auth request payload
+  - Admin users list
+  - Store rating request
+  - Store owner rating response
+
+---
+
+## ✅ Notes
 
 - Auth token is stored in frontend `localStorage`
 - API client injects JWT token automatically on protected calls
@@ -248,15 +266,6 @@ The frontend starts on `http://localhost:5173` by default.
 
 ---
 
-## 💡 Recommended Improvements
-
-- Add unit/integration tests for backend and frontend
-- Add more admin/store owner actions
-- Add rating history and store search filters
-- Add better error and success notifications
-
----
-
-## 📌 Contact
+##  Contact
 
 This README is written for the StoreRating project in this repository. If you want, I can also add a `project demo` section, `schema overview`, or `seed data steps`.
