@@ -21,9 +21,11 @@ This repository contains two main parts:
 
 - Embedded demo (Google Drive preview) — should play in Markdown viewers that allow iframes:
 
-<div align="center">
-	<iframe src="https://drive.google.com/file/d/1bxVb2OMBED9amLXJbU8RE2UldSiYgYhf/preview" width="800" height="450" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-</div>
+
+
+https://github.com/user-attachments/assets/4d7e8499-8124-45b4-817a-dde5b7a805b5
+
+
 
 - Fallback: [Open demo video in Google Drive](https://drive.google.com/file/d/1bxVb2OMBED9amLXJbU8RE2UldSiYgYhf/view?usp=sharing)
 
